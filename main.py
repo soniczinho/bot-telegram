@@ -1,36 +1,66 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler
 
-import os
+TOKEN = "SEU_TOKEN_AQUI"
 
-TOKEN = os.getenv("TOKEN")
-
+# /start
 async def start(update, context):
     keyboard = [
-        [InlineKeyboardButton("🔥 Pack R$25", callback_data="pack")],
-        [InlineKeyboardButton("💎 Mensal R$40", callback_data="mensal")],
-        [InlineKeyboardButton("👑 Anual R$60", callback_data="anual")]
+        [InlineKeyboardButton("💎 Semanal R$20", callback_data="semanal")],
+        [InlineKeyboardButton("🔥 Mensal R$32", callback_data="mensal")],
+        [InlineKeyboardButton("👑 3 Meses R$42,90", callback_data="3meses")],
+        [InlineKeyboardButton("💖 Vitalício R$59,99", callback_data="vitalicio")]
     ]
-    
-    reply_markup = InlineKeyboardMarkup(keyboard)
-    
-    await update.message.reply_text("Escolha seu plano 👇", reply_markup=reply_markup)
 
-async def button(update, context):
+    reply_markup = InlineKeyboardMarkup(keyboard)
+
+    await context.bot.send_photo(
+        chat_id=update.effective_chat.id,
+        photo=open('foto.jpg', 'rb'),  # coloque sua imagem aqui
+        caption="""Meu amor, é só realizar o pagamento via PIX abaixo ✨  
+
+Confirmou, o acesso é liberado 🔥  
+
+Escolha um dos planos abaixo 👇""",
+        reply_markup=reply_markup
+    )
+
+# clique nos botões
+async def botao(update, context):
     query = update.callback_query
     await query.answer()
 
-    if query.data == "pack":
-        await query.message.reply_text("Você escolheu o Pack! 💸")
-    elif query.data == "mensal":
-        await query.message.reply_text("Você escolheu o Mensal! 💸")
-    elif query.data == "anual":
-        await query.message.reply_text("Você escolheu o Anual! 💸")
+    escolha = query.data
 
+    if escolha == "semanal":
+        plano = "Semanal"
+        valor = "R$20"
+    elif escolha == "mensal":
+        plano = "Mensal"
+        valor = "R$32"
+    elif escolha == "3meses":
+        plano = "3 Meses"
+        valor = "R$42,90"
+    elif escolha == "vitalicio":
+        plano = "Vitalício"
+        valor = "R$59,99"
+    else:
+        return
+
+    await query.message.reply_text(
+        f"""💰 Plano escolhido: {plano}
+
+Valor: {valor}
+
+Pix: 82b450d2-c9a4-44af-8577-914677d13c19
+
+Após pagar, envie o comprovante aqui."""
+    )
+
+# iniciar bot
 app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
-app.add_handler(CallbackQueryHandler(button))
+app.add_handler(CallbackQueryHandler(botao))
 
-print("Bot rodando...")
 app.run_polling()
