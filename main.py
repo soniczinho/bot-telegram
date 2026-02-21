@@ -20,7 +20,7 @@ async def start(update, context):
 
 "Confirmou, o acesso é liberado 🔥"  
 
-Escolha um dos planos abaixo 👇""",
+"Escolha um dos planos abaixo 👇",
         reply_markup=reply_markup
     )
 
