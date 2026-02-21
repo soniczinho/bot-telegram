@@ -18,7 +18,7 @@ async def start(update, context):
         chat_id=update.effective_chat.id,
         photo="https://raw.githubusercontent.com/soniczinho/bot-telegram/refs/heads/main/foto.jpeg"
 
-Confirmou, o acesso é liberado 🔥  
+"Confirmou, o acesso é liberado 🔥"  
 
 Escolha um dos planos abaixo 👇""",
         reply_markup=reply_markup
