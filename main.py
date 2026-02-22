@@ -16,7 +16,7 @@ async def start(update, context):
 
     await context.bot.send_photo(
         chat_id=update.effective_chat.id,
-        photo="https://raw.githubusercontent.com/soniczinho/bot-telegram/main/foto.jpeg"
+        photo="https://files.catbox.moe/za2jqx.jpg"
 
 "Confirmou, o acesso é liberado 🔥"  
 
