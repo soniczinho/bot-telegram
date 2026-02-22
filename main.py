@@ -1,9 +1,9 @@
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler
 
-TOKEN = "8481208612:AAHaK9o4iZoJujOurOgs6KuEEz_Js6emUNE"
+TOKEN = "8481208612:AAHaK9o4iZoJujOurOgs6KuEEz_Js6emUNE"  # coloque o token do BotFather aqui
 
-# /start
+# Função /start
 async def start(update, context):
     keyboard = [
         [InlineKeyboardButton("💎 Semanal R$20", callback_data="semanal")],
@@ -16,15 +16,16 @@ async def start(update, context):
 
     await context.bot.send_photo(
         chat_id=update.effective_chat.id,
-        photo="https://files.catbox.moe/za2jqx.jpg"
+        photo="https://files.catbox.moe/za2jqx.jpg",  # link direto do Catbox
+        caption="""Meu amor, é só realizar o pagamento via PIX abaixo ✨
 
-"Confirmou, o acesso é liberado 🔥"  
+Confirmou, o acesso é liberado 🔥
 
-"Escolha um dos planos abaixo 👇",
+Escolha um dos planos abaixo 👇""",
         reply_markup=reply_markup
     )
 
-# clique nos botões
+# Função que trata clique nos botões
 async def botao(update, context):
     query = update.callback_query
     await query.answer()
@@ -56,7 +57,7 @@ Pix: 82b450d2-c9a4-44af-8577-914677d13c19
 Após pagar, envie o comprovante aqui."""
     )
 
-# iniciar bot
+# Inicialização do bot
 app = ApplicationBuilder().token(TOKEN).build()
 
 app.add_handler(CommandHandler("start", start))
